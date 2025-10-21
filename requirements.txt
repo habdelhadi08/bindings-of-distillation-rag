@@ -1,0 +1,28 @@
+# Core RAG frameworks
+langchain==0.3.26
+langchain-community==0.3.27
+
+# LLMs & embeddings
+transformers==4.37.2
+sentence-transformers==2.2.2
+torch
+huggingface-hub==0.20.3
+
+# Vector database / retrieval
+chromadb>=0.4.24
+faiss-cpu==1.7.3
+
+# PDF/document processing
+PyMuPDF==1.26.3
+PyPDF2==3.0.1
+
+# API server (Stage 4)
+fastapi==0.111.1
+uvicorn[standard]==0.23.2
+
+# Utilities
+python-dotenv==1.0.0
+tqdm==4.66.1
+
+# Data handling (optional, useful for logging/stats)
+pandas==1.5.3
