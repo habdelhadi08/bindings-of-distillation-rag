@@ -7,12 +7,10 @@ This app allows you to upload PDF documents, extract and embed their text, and q
 
 ## Features
 
-- 🧩 **PDF ingestion** with `PyMuPDF` and text chunking  
-- 🔍 **Vector search** powered by `Chroma` and `sentence-transformers`  
-- 🤖 **Question answering** using Hugging Face models (`Flan-T5`)  
-- ⚡ **FastAPI** backend with `/ask` and `/health` endpoints  
-- 📄 Optional **file upload support**  
-- 🔁 Real-time latency tracking and structured JSON responses  
+- **PDF ingestion** with `PyMuPDF` and text chunking  
+- **Vector search** powered by `Chroma` and `sentence-transformers`  
+- **Question answering** using Hugging Face models (`Flan-T5`)  
+- **FastAPI** backend with `/ask` and `/health` endpoints  
 
 ---
 
