@@ -16,6 +16,7 @@ This app allows you to upload PDF documents, extract and embed their text, and q
 
 ## Project Structure
 
+```
 bindings-of-distillation-rag/
 │
 ├── main.py # FastAPI app (API routes: /ask, /health)
@@ -24,6 +25,7 @@ bindings-of-distillation-rag/
 ├── deploy.sh # Optional Linux/macOS deploy script
 ├── uploaded_files/ # Folder where uploaded PDFs are stored
 └── venv/ # Virtual environment (local setup)
+```
 
 ---
 
