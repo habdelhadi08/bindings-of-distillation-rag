@@ -1,5 +1,4 @@
 #!/bin/bash
-# deploy.sh - setup and start your RAG API
 
 echo "Starting deployment..."
 
