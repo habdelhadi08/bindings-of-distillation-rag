@@ -1,37 +1,52 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel
 import time
+import fitz  # PyMuPDF
+from rag import rag_pipeline  
 
-app = FastAPI()
+app = FastAPI(title="Bindings of Distillation - RAG API")
 
-# Define a request schema
-class QuestionRequest(BaseModel):
-    question: str
-
+# Health check
 @app.get("/health")
 def health():
     """Health check endpoint."""
-    return {"status": "ok"}
+    return "Welcome to the Bindings of Distillation RAG API!"
 
+# Ask endpoint
 @app.post("/ask")
-def ask(request: QuestionRequest):
-    """Ask endpoint for RAG pipeline."""
+async def ask(question: str = Form(...), pdf: UploadFile = File(None)):
+    """
+    Ask a question about an uploaded PDF.
+    If no PDF is provided, the model uses previously loaded data.
+    """
     start_time = time.time()
-
     try:
-        # 🔹 Replace with your actual RAG logic later
-        if not request.question.strip():
+        if not question.strip():
             raise HTTPException(status_code=400, detail="Empty question.")
-        
-        answer = f"Simulated RAG answer for: {request.question}"
-        sources = ["chunk_1", "chunk_2"]
+
+        # If a PDF file is provided, extract text and load it into RAG
+        if pdf:
+            if pdf.content_type != "application/pdf":
+                raise HTTPException(status_code=400, detail="Only PDF files are supported.")
+       
+            pdf_text = ""
+            with fitz.open(stream=await pdf.read(), filetype="pdf") as doc:
+                for page in doc:
+                    pdf_text += page.get_text("text")
+
+            rag_pipeline.load_documents(pdf_text)
+
+        # Ask the model
+        answer = rag_pipeline.ask(question)
+        sources = ["retrieved_context_1", "retrieved_context_2"]
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
 
     latency = round(time.time() - start_time, 3)
 
     return {
+        "question": question,
         "answer": answer,
         "sources": sources,
         "latency_sec": latency
