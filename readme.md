@@ -72,7 +72,7 @@ http://127.0.0.1:8000/docs
 
 This opens the Swagger UI where you can:
 
-Test /health → returns { "status": "ok" }
+Test /health → returns "Welcome to the Bindings of Distillation RAG API!"
 
 Test /ask → upload a PDF and send a JSON question:
 {
